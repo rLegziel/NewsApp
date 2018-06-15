@@ -6,19 +6,19 @@ package com.example.android.newsapp;
 
 public class News {
 
-    private long mDateOfPublication;
+    private String mDateOfPublication;
     private String mSectionName;
     private String mArticleTitle;
     private String mUrl;
 
-    public News(long dateOfPublication, String sectionName, String articleTitle, String url) {
+    public News(String dateOfPublication, String sectionName, String articleTitle, String url) {
         mDateOfPublication = dateOfPublication;
         mSectionName = sectionName;
         mArticleTitle = articleTitle;
         mUrl = url;
     }
 
-    public long getDateOfPublication() {
+    public String getDateOfPublication() {
         return mDateOfPublication;
     }
 

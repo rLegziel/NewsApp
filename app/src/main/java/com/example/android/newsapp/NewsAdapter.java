@@ -9,8 +9,6 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -44,16 +42,13 @@ public class NewsAdapter extends ArrayAdapter<News> {
         String sectionName = currentNews.getSectionName();
         section.setText(sectionName);
 
-        Date dateObject = new Date(currentNews.getDateOfPublication());
+//        Date dateObject = new Date(currentNews.getDateOfPublication());
         TextView date = (TextView) listItemView.findViewById(R.id.article_date);
-        String formattedDate = formatDate(dateObject);
-        date.setText(formattedDate);
+        String dateOfPublication = currentNews.getDateOfPublication();
+        String[] onlyDate = dateOfPublication.split("T");
+        date.setText(onlyDate[0]);
 
         return listItemView;
     }
-
-    private String formatDate(Date dateObject) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        return dateFormat.format(dateObject);
-    }
+    
 }

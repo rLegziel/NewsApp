@@ -27,7 +27,6 @@ public class MainActivity extends AppCompatActivity
     private static final String GUARDIAN_URL_REQUEST ="https://content.guardianapis.com/search?tag=environment/recycling&api-key=test";
 
     private static final String LOG_TAG = MainActivity.class.getName();
-
     private static final int NEWS_LOADER_ID = 1;
 
     private NewsAdapter mAdapter;
@@ -102,6 +101,7 @@ public class MainActivity extends AppCompatActivity
         // Clear the adapter of previous earthquake data
         mAdapter.clear();
         Log.e(LOG_TAG,"the loader has loaded the data");
+
 
 
         ProgressBar progressBar = (ProgressBar) findViewById(R.id.loading_spinner);

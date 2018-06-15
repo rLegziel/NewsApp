@@ -45,7 +45,7 @@ public final class QueryUtils {
             for (int i = 0; i < newsArray.length(); i++) {
                 JSONObject currentNews = newsArray.getJSONObject(i);
 
-                long dateOfPublication = currentNews.getLong("webPublicationDate");
+                String dateOfPublication = currentNews.getString("webPublicationDate");
 
                 String sectionName = currentNews.getString("sectionName");
 
