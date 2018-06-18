@@ -24,12 +24,14 @@ public class MainActivity extends AppCompatActivity
 
     // TODO : add the API URL to query from.
     // TODO: make sure the correct text is printed if there is a problem with the connection, both with no connection or another issue.
-    private static final String GUARDIAN_URL_REQUEST ="https://content.guardianapis.com/search?tag=environment/recycling&api-key=test";
+    private static final String GUARDIAN_URL_REQUEST = "https://content.guardianapis.com/search?tag=environment/recycling&api-key=test";
 
     private static final String LOG_TAG = MainActivity.class.getName();
     private static final int NEWS_LOADER_ID = 1;
 
     private NewsAdapter mAdapter;
+    private ListView newsListView;
+    private TextView mEmptyView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +40,7 @@ public class MainActivity extends AppCompatActivity
 
         ListView newsListView = (ListView) findViewById(R.id.list);
 
-        TextView mEmptyView =(TextView) findViewById(R.id.empty_view);
+        mEmptyView = (TextView) findViewById(R.id.empty_view);
         newsListView.setEmptyView(mEmptyView);
 
         mAdapter = new NewsAdapter(this, new ArrayList<News>());
@@ -92,7 +94,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     public Loader<List<News>> onCreateLoader(int i, Bundle bundle) {
         // Create a new loader for the given URL
-        Log.e(LOG_TAG,"loader was created");
+        Log.e(LOG_TAG, "loader was created");
         return new NewsLoader(this, GUARDIAN_URL_REQUEST);
     }
 
@@ -100,8 +102,8 @@ public class MainActivity extends AppCompatActivity
     public void onLoadFinished(Loader<List<News>> loader, List<News> news) {
         // Clear the adapter of previous earthquake data
         mAdapter.clear();
-        Log.e(LOG_TAG,"the loader has loaded the data");
-
+        Log.e(LOG_TAG, "the loader has loaded the data");
+        mEmptyView.setText(R.string.no_news_found);
 
 
         ProgressBar progressBar = (ProgressBar) findViewById(R.id.loading_spinner);
@@ -118,7 +120,7 @@ public class MainActivity extends AppCompatActivity
     public void onLoaderReset(Loader<List<News>> loader) {
         // Loader reset, so we can clear out our existing data.
         mAdapter.clear();
-        Log.e(LOG_TAG,"the loader has been reset");
+        Log.e(LOG_TAG, "the loader has been reset");
 
     }
 }
