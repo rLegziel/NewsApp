@@ -1,0 +1,13 @@
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:title="@string/settings_title">
+
+
+    <ListPreference
+        android:defaultValue="@string/settings_order_by_business"
+        android:entries="@array/settings_order_by_labels"
+        android:entryValues="@array/settings_order_by_labels"
+        android:key="Order by"
+        android:title="@string/settings_order_by_label" />
+
+</PreferenceScreen>

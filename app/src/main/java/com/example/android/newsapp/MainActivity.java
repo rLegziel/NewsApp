@@ -10,6 +10,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -24,7 +26,7 @@ public class MainActivity extends AppCompatActivity
 
     // TODO : add the API URL to query from.
     // TODO: make sure the correct text is printed if there is a problem with the connection, both with no connection or another issue.
-    private static final String GUARDIAN_URL_REQUEST = "https://content.guardianapis.com/search?tag=environment/recycling&api-key=test";
+    private static final String GUARDIAN_URL_REQUEST = "https://content.guardianapis.com/search?api-key=9ead1081-7efc-4ba3-9dc1-9fc311b6af81&q=";
 
     private static final String LOG_TAG = MainActivity.class.getName();
     private static final int NEWS_LOADER_ID = 1;
@@ -122,5 +124,24 @@ public class MainActivity extends AppCompatActivity
         mAdapter.clear();
         Log.e(LOG_TAG, "the loader has been reset");
 
+    }
+
+    @Override
+    // This method initialize the contents of the Activity's options menu
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+    @Override
+    // This method is called whenever an item in the options menu is selected.
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_settings) {
+            Intent settingsIntent = new Intent(this, SettingsActivity.class);
+            startActivity(settingsIntent);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
