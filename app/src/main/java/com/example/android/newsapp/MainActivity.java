@@ -108,18 +108,17 @@ public class MainActivity extends AppCompatActivity
 
         String business = sharedPrefs.getString(
                 getString(R.string.settings_business_key),
-                getString(R.string.settings_min_magnitude_default)
-        );
+        getString(R.string.settings_min_magnitude_default));
 
         Uri baseUri = Uri.parse(GUARDIAN_URL_REQUEST);
         Uri.Builder uriBuilder = baseUri.buildUpon();
 
 
-        uriBuilder.appendQueryParameter("sustainability", sustainability);
-        uriBuilder.appendQueryParameter("business", business);
+        uriBuilder.appendQueryParameter("sustainability",sustainability);
+        uriBuilder.appendQueryParameter("business",business);
         Log.v("api address",uriBuilder.toString());
 
-        
+
         return new NewsLoader(this, uriBuilder.toString());
     }
 
