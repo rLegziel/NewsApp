@@ -25,7 +25,7 @@ public class SettingsActivity extends AppCompatActivity {
             addPreferencesFromResource(R.xml.settings_main);
 
 
-            Preference orderBy = findPreference("no");
+            Preference orderBy = findPreference("Order by");
             bindPreferenceSummaryToValue(orderBy);
         }
 

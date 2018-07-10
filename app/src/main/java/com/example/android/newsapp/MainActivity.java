@@ -4,10 +4,12 @@ import android.app.LoaderManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.Loader;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -39,6 +41,7 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
         ListView newsListView = (ListView) findViewById(R.id.list);
 
@@ -97,8 +100,29 @@ public class MainActivity extends AppCompatActivity
     public Loader<List<News>> onCreateLoader(int i, Bundle bundle) {
         // Create a new loader for the given URL
         Log.e(LOG_TAG, "loader was created");
-        return new NewsLoader(this, GUARDIAN_URL_REQUEST);
+
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+        String sustainability = sharedPrefs.getString(
+                getString(R.string.settings_sustainability_key),
+                getString(R.string.settings_min_magnitude_default));
+
+        String business = sharedPrefs.getString(
+                getString(R.string.settings_business_key),
+                getString(R.string.settings_min_magnitude_default)
+        );
+
+        Uri baseUri = Uri.parse(GUARDIAN_URL_REQUEST);
+        Uri.Builder uriBuilder = baseUri.buildUpon();
+
+
+        uriBuilder.appendQueryParameter("sustainability", sustainability);
+        uriBuilder.appendQueryParameter("business", business);
+        Log.v("api address",uriBuilder.toString());
+
+        
+        return new NewsLoader(this, uriBuilder.toString());
     }
+
 
     @Override
     public void onLoadFinished(Loader<List<News>> loader, List<News> news) {
@@ -144,4 +168,6 @@ public class MainActivity extends AppCompatActivity
         }
         return super.onOptionsItemSelected(item);
     }
+
+
 }
