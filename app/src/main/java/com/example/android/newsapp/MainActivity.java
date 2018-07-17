@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity
 
     // TODO : add the API URL to query from.
     // TODO: make sure the correct text is printed if there is a problem with the connection, both with no connection or another issue.
-    private static final String GUARDIAN_URL_REQUEST = "https://content.guardianapis.com/search?api-key=9ead1081-7efc-4ba3-9dc1-9fc311b6af81&q=";
+    private static final String GUARDIAN_URL_REQUEST = "https://content.guardianapis.com/search?api-key=9ead1081-7efc-4ba3-9dc1-9fc311b6af81&";
 
     private static final String LOG_TAG = MainActivity.class.getName();
     private static final int NEWS_LOADER_ID = 1;
@@ -102,24 +102,27 @@ public class MainActivity extends AppCompatActivity
         Log.e(LOG_TAG, "loader was created");
 
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
-        String sustainability = sharedPrefs.getString(
-                getString(R.string.settings_sustainability_key),
+        String sort = sharedPrefs.getString(getString(R.string.settings_sustainability_key),
                 getString(R.string.settings_min_magnitude_default));
-
-        String business = sharedPrefs.getString(
-                getString(R.string.settings_business_key),
-        getString(R.string.settings_min_magnitude_default));
 
         Uri baseUri = Uri.parse(GUARDIAN_URL_REQUEST);
         Uri.Builder uriBuilder = baseUri.buildUpon();
 
+        if (sort.equals("Business")){
+            uriBuilder.appendQueryParameter("q","business");
+            Log.v("api address",uriBuilder.toString());
 
-        uriBuilder.appendQueryParameter("sustainability",sustainability);
-        uriBuilder.appendQueryParameter("business",business);
-        Log.v("api address",uriBuilder.toString());
+        } else{
+            uriBuilder.appendQueryParameter("q","sustainability");
+            Log.v("api address",uriBuilder.toString());
+
+        }
+        return new NewsLoader(this,uriBuilder.toString());
 
 
-        return new NewsLoader(this, uriBuilder.toString());
+
+
+
     }
 
 
@@ -139,6 +142,7 @@ public class MainActivity extends AppCompatActivity
         if (news != null && !news.isEmpty()) {
             mAdapter.addAll(news);
         }
+        getLoaderManager().restartLoader(NEWS_LOADER_ID,null,this);
     }
 
     @Override
