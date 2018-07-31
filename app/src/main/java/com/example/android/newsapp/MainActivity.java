@@ -37,6 +37,8 @@ public class MainActivity extends AppCompatActivity
     private ListView newsListView;
     private TextView mEmptyView;
 
+    private SharedPreferences.OnSharedPreferenceChangeListener prefListener;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -94,6 +96,16 @@ public class MainActivity extends AppCompatActivity
             // Update empty state with no connection error message
             mEmptyView.setText(R.string.no_internet_connection);
         }
+
+        prefListener = new SharedPreferences.OnSharedPreferenceChangeListener() {
+            public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
+                prefs.getString(getString(R.string.settings_order_by_key),"");
+                }
+            };
+
+
+
+
     }
 
     @Override
@@ -102,11 +114,12 @@ public class MainActivity extends AppCompatActivity
         Log.e(LOG_TAG, "loader was created");
 
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
-        String sort = sharedPrefs.getString(getString(R.string.settings_sustainability_key),
-                getString(R.string.settings_min_magnitude_default));
-
+        sharedPrefs.registerOnSharedPreferenceChangeListener(prefListener);
+        String sort = sharedPrefs.getString(getString(R.string.settings_order_by_key),"Business");
         Uri baseUri = Uri.parse(GUARDIAN_URL_REQUEST);
-        Uri.Builder uriBuilder = baseUri.buildUpon();
+        Log.v("tag", sort);
+        final Uri.Builder uriBuilder = baseUri.buildUpon();
+
 
         if (sort.equals("Business")){
             uriBuilder.appendQueryParameter("q","business");
@@ -142,8 +155,8 @@ public class MainActivity extends AppCompatActivity
         if (news != null && !news.isEmpty()) {
             mAdapter.addAll(news);
         }
-        getLoaderManager().restartLoader(NEWS_LOADER_ID,null,this);
     }
+
 
     @Override
     public void onLoaderReset(Loader<List<News>> loader) {
@@ -171,6 +184,7 @@ public class MainActivity extends AppCompatActivity
         }
         return super.onOptionsItemSelected(item);
     }
+
 
 
 }
