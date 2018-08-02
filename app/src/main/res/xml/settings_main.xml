@@ -7,7 +7,7 @@
         android:defaultValue="@string/settings_order_by_business"
         android:entries="@array/settings_order_by_labels"
         android:entryValues="@array/settings_order_by_labels"
-        android:key="Order by"
+        android:key="@string/settings_order_by_key"
         android:title="@string/settings_order_by_label" />
 
 </PreferenceScreen>

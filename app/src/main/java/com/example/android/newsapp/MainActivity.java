@@ -24,7 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity
-        implements LoaderManager.LoaderCallbacks<List<News>> {
+        implements LoaderManager.LoaderCallbacks<List<News>>, SharedPreferences.OnSharedPreferenceChangeListener {
 
     // TODO : add the API URL to query from.
     // TODO: make sure the correct text is printed if there is a problem with the connection, both with no connection or another issue.
@@ -97,16 +97,19 @@ public class MainActivity extends AppCompatActivity
             mEmptyView.setText(R.string.no_internet_connection);
         }
 
-        prefListener = new SharedPreferences.OnSharedPreferenceChangeListener() {
-            public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
-                prefs.getString(getString(R.string.settings_order_by_key),"");
-                }
-            };
 
 
 
 
     }
+
+
+        public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
+            if (key.equals(getString(R.string.settings_order_by_key))) {
+                mAdapter.clear();
+                getLoaderManager().restartLoader(NEWS_LOADER_ID, null, this);
+            }
+        }
 
     @Override
     public Loader<List<News>> onCreateLoader(int i, Bundle bundle) {
@@ -115,7 +118,7 @@ public class MainActivity extends AppCompatActivity
 
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
         sharedPrefs.registerOnSharedPreferenceChangeListener(prefListener);
-        String sort = sharedPrefs.getString(getString(R.string.settings_order_by_key),"Business");
+        String sort = sharedPrefs.getString(getString(R.string.settings_order_by_key),"");
         Uri baseUri = Uri.parse(GUARDIAN_URL_REQUEST);
         Log.v("tag", sort);
         final Uri.Builder uriBuilder = baseUri.buildUpon();
