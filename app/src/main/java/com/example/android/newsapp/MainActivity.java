@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity
     private TextView mEmptyView;
 
     private SharedPreferences.OnSharedPreferenceChangeListener prefListener;
+    private NewsLoader mLoader;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,11 +99,7 @@ public class MainActivity extends AppCompatActivity
         }
 
 
-
-
-
     }
-
 
         public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
             if (key.equals(getString(R.string.settings_order_by_key))) {
