@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity
     private NewsAdapter mAdapter;
     private ListView newsListView;
     private TextView mEmptyView;
+    private SharedPreferences sharedPrefs;
 
     private SharedPreferences.OnSharedPreferenceChangeListener prefListener;
     private NewsLoader mLoader;
@@ -97,16 +98,17 @@ public class MainActivity extends AppCompatActivity
             // Update empty state with no connection error message
             mEmptyView.setText(R.string.no_internet_connection);
         }
-
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+        sharedPrefs.registerOnSharedPreferenceChangeListener(prefListener);
 
     }
 
-        public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
-            if (key.equals(getString(R.string.settings_order_by_key))) {
-                mAdapter.clear();
-                getLoaderManager().restartLoader(NEWS_LOADER_ID, null, this);
-            }
+    public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
+        if (key.equals(getString(R.string.settings_order_by_key))) {
+            mAdapter.clear();
+            getLoaderManager().restartLoader(NEWS_LOADER_ID, null, this);
         }
+    }
 
     @Override
     public Loader<List<News>> onCreateLoader(int i, Bundle bundle) {
