@@ -26,8 +26,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity
         implements LoaderManager.LoaderCallbacks<List<News>>, SharedPreferences.OnSharedPreferenceChangeListener {
 
-    // TODO : add the API URL to query from.
-    // TODO: make sure the correct text is printed if there is a problem with the connection, both with no connection or another issue.
+
     private static final String GUARDIAN_URL_REQUEST = "https://content.guardianapis.com/search?api-key=9ead1081-7efc-4ba3-9dc1-9fc311b6af81&";
 
     private static final String LOG_TAG = MainActivity.class.getName();
@@ -187,6 +186,12 @@ public class MainActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+        onSharedPreferenceChanged(sharedPrefs,"order_by");
+    }
 
 
 }

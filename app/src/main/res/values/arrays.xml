@@ -1,6 +1,6 @@
 <resources>
     <string-array name="settings_order_by_labels">
-        <item>@string/settings_order_by_sustainability</item>
         <item>@string/settings_order_by_business</item>
+        <item>@string/settings_order_by_sustainability</item>
     </string-array>
     </resources>
