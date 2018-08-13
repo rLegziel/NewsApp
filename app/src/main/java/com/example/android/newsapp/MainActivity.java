@@ -84,9 +84,7 @@ public class MainActivity extends AppCompatActivity
             // Get a reference to the LoaderManager, in order to interact with loaders.
             LoaderManager loaderManager = getLoaderManager();
 
-            // Initialize the loader. Pass in the int ID constant defined above and pass in null for
-            // the bundle. Pass in this activity for the LoaderCallbacks parameter (which is valid
-            // because this activity implements the LoaderCallbacks interface).
+
             loaderManager.initLoader(NEWS_LOADER_ID, null, this);
         } else {
             // Otherwise, display error
@@ -94,7 +92,6 @@ public class MainActivity extends AppCompatActivity
             View loadingIndicator = findViewById(R.id.loading_spinner);
             loadingIndicator.setVisibility(View.GONE);
 
-            // Update empty state with no connection error message
             mEmptyView.setText(R.string.no_internet_connection);
         }
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);

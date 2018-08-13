@@ -7,7 +7,6 @@
     <string name="settings_order_by_sustainability_label">Sustainability</string>
     <string name="settings_order_by_sustainability_value" translatable="false">sustainability</string>
     <string name="settings_sustainability_key" translatable="false">sustainability</string>
-    <string name="settings_min_magnitude_default" translatable="false">0</string>
 
     <string name="settings_order_by_business">Business</string>
     <string name="settings_order_by_business_value" translatable="false">business</string>
@@ -16,11 +15,10 @@
     <string name="settings_order_by_label">Order By</string>
     <string name="settings_title">News Settings</string>
 
-    <!-- Label for order-by magnitude option [CHAR LIMIT=20] -->
     <string name="settings_order_by_magnitude_label">Magnitude</string>
-    <string name="settings_order_by_magnitude_value" translatable="false">magnitude</string>
+    <!--<string name="settings_order_by_magnitude_value" translatable="false">magnitude</string>-->
 
 
     <string name="settings_order_by_key" translatable="false">order_by</string>
-    <string name="settings_order_by_default" translatable="false">@string/settings_order_by_magnitude_value</string>
+    <!--<string name="settings_order_by_default" translatable="false">@string/settings_order_by_magnitude_value</string>-->
 </resources>
