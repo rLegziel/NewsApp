@@ -53,8 +53,16 @@ public final class QueryUtils {
 
                 String url = currentNews.getString("webUrl");
 
-                News story = new News(dateOfPublication, sectionName, articleTitle, url);
-                news.add(story);
+                if (currentNews.has("byline")) {
+                 String authorName =  currentNews.getString("byline");
+                 News story = new News(dateOfPublication, sectionName, articleTitle, url, authorName);
+                 news.add(story);
+                } else {
+                    String authorName = null;
+                    News story = new News (dateOfPublication, sectionName, articleTitle, url, authorName);
+                    news.add(story);
+
+                }
             }
 
         } catch (JSONException e) {

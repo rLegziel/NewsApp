@@ -42,6 +42,15 @@
                 android:textSize="12sp"
                 android:textStyle="italic" />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAlignment="viewEnd"
+                android:id="@+id/author_name"
+                android:paddingTop="8dp"
+                android:textStyle="italic"
+                android:textSize="12sp"/>
+
 
         </LinearLayout>
     </LinearLayout>

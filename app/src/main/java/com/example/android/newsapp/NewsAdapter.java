@@ -47,6 +47,9 @@ public class NewsAdapter extends ArrayAdapter<News> {
         String[] onlyDate = dateOfPublication.split("T");
         date.setText(onlyDate[0]);
 
+        TextView authorName = listItemView.findViewById(R.id.author_name);
+
+
         return listItemView;
     }
 
